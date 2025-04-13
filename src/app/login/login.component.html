@@ -1,0 +1,65 @@
+<div class="login-wrapper">
+    <div class="login-box">
+      <h2>Login</h2>
+      <form (submit)="login(); $event.preventDefault()">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" [(ngModel)]="password" name="password" required />
+        </div>
+        <button type="submit">Login</button>
+        <p class="register-link">
+          Don't have an account?
+          <a href="#" (click)="openRegisterModal(); $event.preventDefault()">Register</a>
+        </p>
+      </form>
+  
+      <!-- Modal -->
+      <div class="modal-overlay" *ngIf="showRegisterModal">
+        <div class="modal-content animate-modal">
+          <span class="close-icon" (click)="closeRegisterModal()">&#10006;</span>
+          <h3>Register</h3>
+          <form #registerForm="ngForm" (submit)="register(); $event.preventDefault()">
+            <div class="form-group">
+              <label>Name</label>
+              <input
+                type="text"
+                [(ngModel)]="registerData.name"
+                name="name"
+                required
+              />
+            </div>
+          
+            <div class="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                [(ngModel)]="registerData.email"
+                name="email"
+                required
+              />
+            </div>
+          
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                [(ngModel)]="registerData.password"
+                name="password"
+                required
+              />
+            </div>
+          
+            <button type="submit">Register</button>
+            <button type="button" (click)="clearRegisterForm(registerForm)">Clear</button>
+          </form>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,102 @@
+<div class="task-wrapper">
+  <div class="task-card animate-fade-in" [ngClass]="{ 'dark-theme': isDarkMode }">
+    <div style="display: flex; align-items: center; gap: 590px;">
+      <div class="welcome-message">
+        Welcome user!
+      </div>
+      <div class="theme-toggle-container">
+        <label class="theme-switch">
+          <input type="checkbox" (change)="toggleTheme()" [checked]="isDarkMode">
+          <span class="slider">
+            <span class="icon light">🌞</span>
+            <span class="icon dark">🌙</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="header-container-inline">
+      <h3 class="title">My Task Tracker 📝</h3>
+      <div class="avatar-container">
+        <img src="avatar.png" alt="" height="60px" width="60px" (click)="toggleLogout()">
+        <div class="logout-menu" *ngIf="showLogout">
+          <button (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+
+
+    <h4 style="font-family: cursive;">Zap That To-Do List ! - Every great accomplishment starts with a single checked box — let’s begin!</h4>
+    <div class="input-group">
+      <input [(ngModel)]="newTask" class="form-control" placeholder="Enter a task..." />
+      <button (click)="addTask()" class="btn btn-add">Add</button>
+    </div>
+
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Task</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks" class="animate-slide-up">
+          <td>
+            <input type="checkbox" [checked]="task.completed" (change)="toggleTask(task._id)" />
+          </td>
+          <td>
+            <span [ngClass]="{ 'completed': task.completed }">{{ task.title }}</span>
+          </td>
+          <td>
+            <button class="btn btn-delete" (click)="deleteTask(task._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="notes-container">
+
+
+      <div class="custom-btn healthy-btn" (click)="showTipsPopup()">
+        Some healthy tips!!
+      </div>
+      
+      <div class="note-popup-backdrop" *ngIf="showNotePopup">
+        <div class="note-popup animate-popup">
+          <div *ngIf="showHealthyTips; else noteForm">
+            <h3>Healthy Tips for Everyone</h3>
+            <ul>
+              <li><strong>Stay Hydrated:</strong> Drink 8 cups of water a day to maintain proper bodily functions.</li>
+              <li><strong>Eat a Balanced Diet:</strong> Include fruits, vegetables, whole grains, lean proteins, and
+                healthy fats.</li>
+              <li><strong>Exercise Regularly:</strong> Aim for at least 150 minutes of moderate-intensity exercise
+                weekly.</li>
+              <li><strong>Get Enough Sleep:</strong> Aim for 7-9 hours of sleep each night for better health and focus.
+              </li>
+              <li><strong>Practice Mindfulness and Stress Management:</strong> Incorporate relaxation techniques like
+                meditation and deep breathing.</li>
+              <li><strong>Maintain Good Hygiene:</strong> Wash your hands regularly and maintain personal hygiene.</li>
+              <li><strong>Foster Social Connections:</strong> Stay connected with friends, family, or a community for
+                emotional well-being.</li>
+            </ul>
+            <button class="btn btn-close-popup" (click)="closeNotePopup()">Close</button>
+
+          </div>
+
+          <ng-template #noteForm>
+            <h3>Add a Note</h3>
+            <textarea [(ngModel)]="noteContent" placeholder="Write your note..."></textarea>
+            <div class="popup-actions">
+              <button class="btn btn-success">Save</button>
+              <button class="btn btn-danger" (click)="closeNotePopup()">Cancel</button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
